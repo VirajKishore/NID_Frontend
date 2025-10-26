@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import axios from "axios";
 
-import { NotesListUpdateFunctionContext } from "../../../App";
+import { NoteListUpdateFunctionContext } from "../../../App";
 import "./DeleteModal.styles.css";
 
 export default function DeleteModal({ noteId, showDeleteModal }) {
-  const setNotes = useContext(NotesListUpdateFunctionContext);
+  const setNotes = useContext(NoteListUpdateFunctionContext);
   const handleYesClick = async () => {
-    const API_URL = "http://localhost:8000";
+    const API_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000";
     await axios.delete(`${API_URL}/note/${noteId}`);
     const { data } = await axios.get(`${API_URL}/notes`);
     setNotes(data);

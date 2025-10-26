@@ -13,7 +13,7 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   useEffect(() => {
     const getNotes = async () => {
-      const API_URL = "http://127.0.0.1:8000";
+      const API_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000";
       const { data } = await axios.get(`${API_URL}/notes`);
       setNotes(data);
     };

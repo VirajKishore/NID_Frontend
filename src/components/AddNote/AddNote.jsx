@@ -14,12 +14,9 @@ const AddNote = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (title.trim().length > 0) {
-      if (body.trim().length === 0 || body === null || body === undefined) {
-        body = "";
-      }
+    if (title.length > 0) {
       setIsLoading(true);
-      const API_URL = "http://127.0.0.1:8000";
+      const API_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000";
       const { data } = await axios.post(`${API_URL}/note`, { title, body });
       setNotes((prev) => [...prev, data]);
     } else {

@@ -6,7 +6,7 @@ import "./Note.styles.css";
 
 export default function NoteViewer({ note, setNoteView }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const { id, title, note_body } = note;
+  const { id, title, body } = note;
   const handleDeleteNote = () => {
     setShowDeleteModal(true);
   };
@@ -16,7 +16,7 @@ export default function NoteViewer({ note, setNoteView }) {
         <DeleteModal showDeleteModal={setShowDeleteModal} noteId={id} />
       )}
       <h3>{title}</h3>
-      <p>{note_body}</p>
+      <p>{body}</p>
       <div className="note-buttons-container">
         <button className="neutral-btn" onClick={() => setNoteView("editing")}>
           Edit

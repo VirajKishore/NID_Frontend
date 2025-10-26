@@ -1,22 +1,23 @@
 import axios from "axios";
-import { useState, useContext } from "react";
-import { NotesListUpdateFunctionContext } from "../../../App";
+import { useState, useContext, useRef } from "react";
+import { NoteListUpdateFunctionContext } from "../../../App";
 
 import "./Note.styles.css";
 
 export default function NoteEditor({ note, setNoteView }) {
   const [title, setTitle] = useState(note.title);
-  const [body, setBody] = useState(note.note_body);
+  const [body, setBody] = useState(note.body);
   const [isInvalidSave, setIsInvalidSave] = useState(false);
-  const setNotes = useContext(NotesListUpdateFunctionContext);
+  const setNotes = useContext(NoteListUpdateFunctionContext);
+  const noteTitleInputRef = useRef(null);
 
   const handleNoteSave = async (event, id) => {
     event.preventDefault();
     if (title.length > 0) {
-      const API_URL = "http://localhost:8000";
+      const API_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000";
       await axios.put(`${API_URL}/note/${id}`, {
         title: title,
-        note_body: body,
+        body: body,
       });
       const { data } = await axios.get(`${API_URL}/notes`);
       setNotes(data);
